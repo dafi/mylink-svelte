@@ -1,0 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+:root {
+  --link-key-background: #eee;
+  --link-key-color: #333;
+  --favicon-color: blue;
+  --title-font-size: 0.875em;
+  --label-font-size: 0.875em;
+  --widget-background-color: #fff;
+  --widget-border-color: gray;
+  --widget-border-radius: 6px;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  color: #666;
+}
+
+.ml-wrapper {
+  padding: 5px;
+  margin: 5px;
+}
+
+.ml-widget-label h2 {
+  color: #000;
+  display: inline;
+  flex-grow: 1;
+  font-size: var(--title-font-size);
+  line-height: 34px;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 10px 10px 10px;
+}
+
+.ml-widget-list {
+  padding: 0 10px 10px 10px;
+}
+
+.ml-widget-item-link {
+  color: #444;
+  display: block;
+  font-size: var(--label-font-size);
+  text-decoration: none;
+}
+
+.ml-widget-item-link::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  transition: width .3s;
+  background: #999;
+}
+
+.ml-widget-item-link:hover::after {
+  width: 100%;
+}
+
+.ml-widget-item-link .content {
+  color: #444;
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+}
+
+.ml-widget-item-link .left-items {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.ml-widget-item-link:focus, .ml-widget-item-link:focus {
+  text-decoration: none;
+}
+
+.ml-widget-item-link kbd {
+  border-radius: 3px;
+  background-color: var(--link-key-background, #eee);
+  color: var(--link-key-color, #333);
+  border: 1px solid #b4b4b4;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
+  font-size: 1.1em;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0 4px;
+  white-space: nowrap;
+}
+
+.ml-rows {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: flex-start;
+  margin: 5px 0;
+  width: 100%;
+}
+
+.ml-rows ul {
+  list-style-type: none;
+  min-height: 23px;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+.ml-rows li {
+  margin-bottom: 2px;
+}
+
+.ml-columns {
+  display: flex;
+  flex-direction: row;
+}
+
+.ml-widget {
+  flex: 1;
+  border: 1px solid var(--widget-border-color);
+  margin: 5px 10px;
+  background-color: var(--widget-background-color, #ff0000);
+  box-shadow: 8px 8px 6px rgba(0,0,0,.2);
+  border-radius: var(--widget-border-radius);
+}
+
+.ml-widget:hover .ml-toolbar {
+  display: block;
+}
+
+.ml-toolbar {
+  float: right;
+  line-height: 34px;
+  cursor: pointer;
+  display: none;
+}
+
+.ml-toolbar .icon {
+  padding-right: 8px;
+  color: #000;
+}
+
+.ml-toolbar .icon:hover {
+  animation-name: pulse;
+  animation-duration: 0.7s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(0.8);
+  }
+}
+
+.ml-widget a:focus {
+  outline: 0;
+  font-weight: bold;
+}
+
+/* Set max dimensions otherwise it has a very long height */
+#files {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.ml-widget-show-minimized-window {
+  position: relative;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.ml-widget-show-minimized-list-container {
+  position: absolute;
+  width: 100%;
+  background-color: var(--widget-background-color);
+  border-left: 1px solid var(--widget-border-color);
+  border-right: 1px solid var(--widget-border-color);
+  border-bottom: 1px solid var(--widget-border-color);
+  left: -1px;
+  box-shadow: 8px 8px 6px rgba(0,0,0,.2);
+  border-bottom-left-radius: var(--widget-border-radius);
+  border-bottom-right-radius: var(--widget-border-radius);
+}
+
+.ml-widget-show-minimized-list-visible {
+  display: block;
+}
+
+.ml-widget-show-minimized-list-hidden {
+  display: none;
+}

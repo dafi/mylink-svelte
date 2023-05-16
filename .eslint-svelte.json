@@ -1,0 +1,15 @@
+{
+  "rules": {
+    "svelte/valid-compile": [
+      "error", {
+        "ignoreWarnings": true
+      }
+    ],
+    "@typescript-eslint/explicit-function-return-type": [
+      "error", {
+        "allowExpressions" : true,
+        "allowTypedFunctionExpressions": true
+      }
+    ]
+  }
+}

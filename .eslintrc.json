@@ -1,0 +1,57 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:jsdoc/recommended",
+    "plugin:svelte/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "./.eslint-jscode.json"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["tsconfig.json"],
+    "tsconfigRootDir": ".",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "extraFileExtensions": [".svelte"]
+  },
+  "plugins": [
+    "@typescript-eslint",
+    "jsdoc",
+    "import"
+  ],
+  "rules": {
+    "jsdoc/require-jsdoc": 0
+  },
+  "overrides": [
+    {
+      // Moved inside the overrides section to avoid errors reported
+      // on js files using @typescript-eslint/* rules
+      "files": ["**/*.ts", "**/*.tsx"],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "./.eslint-typescript.json"
+      ]
+    },
+    {
+      "files": ["*.svelte"],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "./.eslint-typescript.json",
+        "./.eslint-svelte.json"
+      ],
+      "parser": "svelte-eslint-parser",
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser"
+      }
+    }
+  ],
+  "settings": {
+  }
+}
