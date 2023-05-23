@@ -721,7 +721,7 @@ ij_c_while_brace_force = never
 ij_c_while_on_new_line = false
 ij_c_wrap_property_declaration = off
 
-[{*.ats,*.ts,*.tsx}]
+[{*.ats,*.ts,*.tsx,*.svelte}]
 indent_size = 2
 max_line_length = 140
 tab_width = 2
