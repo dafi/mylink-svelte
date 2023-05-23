@@ -23,52 +23,53 @@
 </script>
 
 {#if faviconUrl}
-    <img src={faviconUrl} class="link-icon-favicon" alt=""/>
+  <img src={faviconUrl} class="link-icon-favicon" alt=""/>
 {:else}
-    <div style:color="#fff"
-         style:background-color={colors[hash(link.label) % colors.length]}
-         class="link-icon-favicon-missing">{link.label.charAt(0)}
-    </div>
+  <div style:color="#fff"
+       style:background-color={colors[hash(link.label) % colors.length]}
+       class="link-icon-favicon-missing">{link.label.charAt(0)}
+  </div>
 {/if}
 
 <style>
-    .link-icon-favicon {
-        width: 16px;
-        height: 16px;
-        line-height: 16px;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: 16px 16px;
-        margin-right: 6px;
-    }
+  .link-icon-favicon {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 16px 16px;
+    margin-right: 6px;
+    display: block;
+  }
 
-    .link-icon-favicon img {
-        max-width: 16px;
-        max-height: 16px;
-        min-width: 16px;
-        min-height: 16px;
-    }
+  .link-icon-favicon img {
+    max-width: 16px;
+    max-height: 16px;
+    min-width: 16px;
+    min-height: 16px;
+  }
 
-    .link-icon-favicon-missing {
-        width: 16px;
-        height: 16px;
-        max-width: 16px;
-        max-height: 16px;
-        min-width: 16px;
-        min-height: 16px;
-        border-radius: 50%;
+  .link-icon-favicon-missing {
+    width: 16px;
+    height: 16px;
+    max-width: 16px;
+    max-height: 16px;
+    min-width: 16px;
+    min-height: 16px;
+    border-radius: 50%;
 
-        margin-right: 6px;
+    margin-right: 6px;
 
-        display: grid;
-        align-items: center;
-        justify-content: center;
-        text-transform: capitalize;
-        text-indent: 0;
-        font-style: normal;
-        font-size: 0.9em;
-        font-weight: bold;
-        line-height: 0;
-    }
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    text-transform: capitalize;
+    text-indent: 0;
+    font-style: normal;
+    font-size: 0.9em;
+    font-weight: bold;
+    line-height: 0;
+  }
 
 </style>

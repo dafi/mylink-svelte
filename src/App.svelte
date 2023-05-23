@@ -1,18 +1,16 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import Grid from './lib/Grid.svelte';
-  import Spotlight from './lib/Spotlight.svelte';
-  import Toolbar from './lib/Toolbar.svelte';
-  import type ToolbarEvent from './lib/Toolbar.svelte';
+  import { type AppConfig, applicationStore, } from './common/AppConfig';
   import { Config } from './common/Config';
-  import { type MyLinks as MMLinks } from './model/MyLinks-interface';
-  import { MyLinksHolder } from './model/MyLinks';
-  import { UIInput } from './common/UIInput';
-  import {
-    type AppConfig,
-    applicationStore,
-  } from './common/AppConfig';
   import { isShortcutsHidden, setHideShortcuts } from './common/config/shortcuts';
+  import { UIInput } from './common/UIInput';
+  import Grid from './lib/Grid.svelte';
+  import LinkSelector from './lib/LinkSelector.svelte';
+  import Modal, { getModal } from './lib/Modal.svelte';
+  import type ToolbarEvent from './lib/Toolbar.svelte';
+  import Toolbar from './lib/Toolbar.svelte';
+  import { MyLinksHolder, openLink } from './model/MyLinks';
+  import { type Link as MMLink, type MyLinks as MMLinks } from './model/MyLinks-interface';
 
   let myLinksHolder: MyLinksHolder | undefined;
 
@@ -83,9 +81,18 @@
       e.stopPropagation();
       e.preventDefault();
 
+      getModal().open();
       return true;
     }
     return UIInput.instance().keyDown(e);
+  }
+
+  function onLinkSelected(event: CustomEvent): void {
+    getModal().close();
+    const selectedLink = event.detail as MMLink;
+    // Ensure the DOM is updated and the dialog is hidden when the link is open
+    // This is necessary because when returning to myLinks window/tab, the dialog can be yet visible
+    window.requestIdleCallback(() => openLink(selectedLink));
   }
 
   onMount(() => {
@@ -107,8 +114,14 @@
     </div>
 
     <Toolbar
-            hasShortcuts={hasShortcuts}
-            on:action={handleToolbarEvent}></Toolbar>
+      hasShortcuts={hasShortcuts}
+      on:action={handleToolbarEvent}></Toolbar>
+
+    <Modal bind:visible={isOpen}>
+      <LinkSelector visible={isOpen}
+                    widgets={columns}
+                    on:selected={onLinkSelected}/>
+    </Modal>
 
     <!--    <Spotlight show={this.state.isOpen}-->
     <!--               onClose={this.toggleModal}>-->
