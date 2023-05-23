@@ -10,21 +10,24 @@
     expandIcon: string;
   }
 
+  interface MinimizeStatus {
+    startMinimized: boolean;
+    isMinimized: boolean;
+  }
+
   function toggleMinimize(mini: boolean): void {
-    if (startMinimized) {
+    if (startMinimized && isMinimized !== mini) {
       isMinimized = mini;
     }
-    cssClasses = cssExtraClasses();
   }
 
   function toggleWidgetSize(): void {
     startMinimized = !startMinimized;
     localStorage.setItem(`${value.id}-minimized`, startMinimized ? 't' : 'f');
     isMinimized = startMinimized;
-    cssClasses = cssExtraClasses();
   }
 
-  function cssExtraClasses(): WidgetExtraCssClass {
+  function cssExtraClasses(status: MinimizeStatus): WidgetExtraCssClass {
     const cls: WidgetExtraCssClass = {
       window: '',
       list: '',
@@ -32,8 +35,8 @@
       expandIcon: ''
     };
 
-    if (startMinimized) {
-      if (isMinimized) {
+    if (status.startMinimized) {
+      if (status.isMinimized) {
         cls.list = 'ml-widget-show-minimized-list-hidden';
       } else {
         cls.window = 'ml-widget-show-minimized-window';
@@ -48,30 +51,30 @@
   }
 
   export let value: MLWidget;
-  let startMinimized = localStorage.getItem(`${value.id}-minimized`) === 't';
+  let startMinimized = value && localStorage.getItem(`${value.id}-minimized`) === 't';
   let isMinimized = startMinimized;
 
-  let cssClasses = cssExtraClasses();
+  $: cssClasses = cssExtraClasses({ startMinimized, isMinimized });
 
 </script>
 
 <div class={`ml-widget ${cssClasses.window}`} data-list-id={value.id}
      on:mouseover={() => toggleMinimize(false)}
      on:mouseout={() => toggleMinimize(true)}>
-    <div class="ml-widget-label">
-        <h2>{value.title}</h2>
-        <span class="ml-toolbar">
-            <i class={`${cssClasses.expandIcon} icon`} on:click={() => toggleWidgetSize()}></i>
-            <i class="fa fa-external-link-alt icon" on:click={() => openAllLinks(value)}></i>
-          </span>
-    </div>
-    <div class={cssClasses.listContainer}>
-        <ul class={`ml-widget-list ${cssClasses.list}`}>
-            {#each value.list as v (v.url)}
-                <li>
-                    <Link value={v}/>
-                </li>
-            {/each}
-        </ul>
-    </div>
+  <div class="ml-widget-label">
+    <h2>{value.title}</h2>
+    <span class="ml-toolbar">
+      <i class={`${cssClasses.expandIcon} icon`} on:click={() => toggleWidgetSize()}></i>
+      <i class="fa fa-external-link-alt icon" on:click={() => openAllLinks(value)}></i>
+    </span>
+  </div>
+  <div class={cssClasses.listContainer}>
+    <ul class={`ml-widget-list ${cssClasses.list}`}>
+      {#each value.list as v (v.url)}
+        <li>
+          <Link value={v}/>
+        </li>
+      {/each}
+    </ul>
+  </div>
 </div>
