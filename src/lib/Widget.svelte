@@ -64,8 +64,8 @@
   <div class="ml-widget-label">
     <h2>{value.title}</h2>
     <span class="ml-toolbar">
-      <i class={`${cssClasses.expandIcon} icon`} on:click={() => toggleWidgetSize()}></i>
-      <i class="fa fa-external-link-alt icon" on:click={() => openAllLinks(value)}></i>
+      <i class={`${cssClasses.expandIcon} icon`} on:click={() => toggleWidgetSize()}>
+      </i><i class="fa fa-external-link-alt icon" on:click={() => openAllLinks(value)}></i>
     </span>
   </div>
   <div class={cssClasses.listContainer}>
