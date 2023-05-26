@@ -35,21 +35,32 @@
   }
 </script>
 
-<label class="toolbar-icon" title="Load configuration from local file">
-  <i class="fa fa-file-import"></i>
-  <input type="file" id="files" name="files[]"
-         accept="application/json"
-         on:change={e => handleFileSelect(e)}/>
-</label>
+<div class="toolbar-container">
+  <label class="toolbar-icon" title="Load configuration from local file">
+    <i class="fa fa-file-import"></i>
+    <input type="file" id="files" name="files[]"
+           accept="application/json"
+           on:change={e => handleFileSelect(e)}/>
+  </label>
 
-<label class="toolbar-icon"
-       title="Toggle shortcuts visibility"
-       style:visibility={ hasShortcuts ? 'visible' : 'collapse'}
-       on:click={e => onClickKeyboard(e)}>
-  <i class="fa fa-keyboard"></i>
-</label>
+  <label class="toolbar-icon"
+         title="Toggle shortcuts visibility"
+         style:visibility={ hasShortcuts ? 'visible' : 'collapse'}
+         on:click={e => onClickKeyboard(e)}>
+    <i class="fa fa-keyboard"></i>
+  </label>
+</div>
 
 <style>
+
+  .toolbar-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    flex-direction: row;
+  }
 
   /** from https://gist.github.com/barneycarroll/5244258 **/
   .toolbar-icon {
