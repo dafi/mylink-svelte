@@ -15,18 +15,24 @@
   export let visible = false;
   let result: Result[] = [];
   let selectedIndex = -1;
-  let listRefs: Record<string, HTMLElement>  = {};
+  let listRefs: Record<string, HTMLLIElement> = {};
   let inputBox: HTMLInputElement | undefined;
 
-  const options = {
+  const fuseOptions = {
     keys: ['label']
   };
 
   $: links = widgets?.flat().map(w => w.list).flat() || [];
-  $: fuse = new Fuse(links, options);
+  $: fuse = new Fuse(links, fuseOptions);
   $: moveFocusToSearch(visible);
+  $: clear(visible);
 
   function onClick(e: MouseEvent, index: number): void {
+    // skip if a dblclick is in progress
+    // https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/detail
+    if (e.detail !== 1) {
+      return;
+    }
     e.preventDefault();
     e.stopPropagation();
 
@@ -64,10 +70,7 @@
     }
     if (newIndex !== -1) {
       const item = result[newIndex];
-      const liElement = listRefs[item.id];
-      if (liElement) {
-        liElement.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-      }
+      listRefs[item.id]?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
       selectedIndex = newIndex;
     }
     e.preventDefault();
@@ -99,6 +102,15 @@
 
   function onSelected(link: MMLink): void {
     dispatch('selected', link);
+  }
+
+  function clear(_: boolean): void {
+    if (inputBox) {
+      inputBox.value = '';
+    }
+    result = [];
+    selectedIndex = -1;
+    listRefs = {};
   }
 </script>
 

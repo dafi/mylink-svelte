@@ -6,6 +6,8 @@
   import { UIInput } from './common/UIInput';
   import Grid from './lib/Grid.svelte';
   import LinkSelector from './lib/LinkSelector.svelte';
+  // https://youtrack.jetbrains.com/issue/WEB-46268/Support-TypeScript-in-Svelte#focus=Comments-27-6627302.0-0
+  // https://youtrack.jetbrains.com/issue/WEB-58188/Support-import-from-module-context
   import Modal, { getModal } from './lib/Modal.svelte';
   import type ToolbarEvent from './lib/Toolbar.svelte';
   import Toolbar from './lib/Toolbar.svelte';
@@ -61,8 +63,9 @@
     }
   }
 
-  function handleToolbarEvent(event: CustomEvent): void {
-    const toolbarEvent = event.detail as ToolbarEvent;
+  function handleToolbarEvent(event: CustomEvent<ToolbarEvent>): void {
+    const toolbarEvent = event.detail;
+
     if (toolbarEvent.target === 'file') {
       onFileSelect(toolbarEvent.data as File);
     } else if (toolbarEvent.target === 'shortcut') {
@@ -72,27 +75,25 @@
 
   function keyDown(e: KeyboardEvent): boolean {
     if (isOpen) {
-      if (e.key === 'Escape') {
-        return true;
-      }
-      return false;
+      return e.key === 'Escape';
     }
     if (e.key === ' ') {
       e.stopPropagation();
       e.preventDefault();
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
       getModal().open();
       return true;
     }
     return UIInput.instance().keyDown(e);
   }
 
-  function onLinkSelected(event: CustomEvent): void {
+  function onLinkSelected(event: CustomEvent<MMLink>): void {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
     getModal().close();
-    const selectedLink = event.detail as MMLink;
     // Ensure the DOM is updated and the dialog is hidden when the link is open
     // This is necessary because when returning to myLinks window/tab, the dialog can be yet visible
-    window.requestIdleCallback(() => openLink(selectedLink));
+    window.requestIdleCallback(() => openLink(event.detail));
   }
 
   onMount(() => {
@@ -122,15 +123,5 @@
                     widgets={columns}
                     on:selected={onLinkSelected}/>
     </Modal>
-
-    <!--    <Spotlight show={this.state.isOpen}-->
-    <!--               onClose={this.toggleModal}>-->
-    <!--      <LinkSelector-->
-    <!--              onSelected={this.onLinkSelected}-->
-    <!--              widgets={this.myLinksHolder?.myLinks.columns}/>-->
-    <!--    </Spotlight>-->
-
   </div>
-
-
 </main>
