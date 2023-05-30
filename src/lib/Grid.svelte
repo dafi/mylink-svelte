@@ -6,8 +6,15 @@
 
 </script>
 
-<section class="ml-columns">
+<section class="columns">
     {#each columns as widget, index (index)}
         <Column value={widget}/>
     {/each}
 </section>
+
+<style>
+  .columns {
+    display: flex;
+    flex-direction: row;
+  }
+</style>

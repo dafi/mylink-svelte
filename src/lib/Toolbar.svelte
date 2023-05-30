@@ -52,6 +52,11 @@
 </div>
 
 <style>
+  /* Set max dimensions otherwise it has a very long height */
+  #files {
+    max-width: 100%;
+    max-height: 100%;
+  }
 
   .toolbar-container {
     display: flex;

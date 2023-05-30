@@ -14,8 +14,6 @@
   import { MyLinksHolder, openLink } from './model/MyLinks';
   import { type Link as MMLink, type MyLinks as MMLinks } from './model/MyLinks-interface';
 
-  let myLinksHolder: MyLinksHolder | undefined;
-
   function onFileSelect(file: File): void {
     Config.fromFile(file, (myLinks?: MMLinks | null) => {
       reloadAll(myLinks);
@@ -103,14 +101,15 @@
     });
   });
 
+  let myLinksHolder: MyLinksHolder | undefined;
   let columns = [[]];
   let hasShortcuts = false;
   let isOpen = false;
 </script>
 
 <main>
-  <div class="ml-wrapper">
-    <div class="ml-grid">
+  <div class="wrapper">
+    <div class="grid-container">
       <Grid columns={columns}/>
     </div>
 
@@ -125,3 +124,10 @@
     </Modal>
   </div>
 </main>
+
+<style>
+  .wrapper {
+    padding: 5px;
+    margin: 5px;
+  }
+</style>
