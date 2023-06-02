@@ -16,15 +16,6 @@ body {
   color: #666;
 }
 
-.ml-widget {
-  flex: 1;
-  border: 1px solid var(--widget-border-color);
-  margin: 5px 10px;
-  background-color: var(--widget-background-color, #ff0000);
-  box-shadow: 8px 8px 6px rgba(0,0,0,.2);
-  border-radius: var(--widget-border-radius);
-}
-
 @keyframes pulse {
   50% {
     transform: scale(0.8);

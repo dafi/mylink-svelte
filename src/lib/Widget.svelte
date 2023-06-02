@@ -1,18 +1,8 @@
 <script lang="ts">
   import { type Widget as MLWidget } from '../model/MyLinks-interface';
   import Link from './Link.svelte';
-  import WidgetToolbar from './WidgetToolbar.svelte';
   import type WidgetToolbarEvent from './WidgetToolbar.svelte';
-
-  // interface WidgetExtraCssClass {
-  //   // collapsed: boolean;
-  //   collapsedVisible: boolean;
-  // }
-  //
-  // interface CollapseStatus {
-  //   startCollapsed: boolean;
-  //   collapsed: boolean;
-  // }
+  import WidgetToolbar from './WidgetToolbar.svelte';
 
   function toggleCollapse(newState: boolean): void {
     if (startCollapsed && collapsed !== newState) {
@@ -26,23 +16,6 @@
     collapsed = startCollapsed;
   }
 
-  // function cssExtraClasses(status: Readonly<CollapseStatus>): WidgetExtraCssClass {
-  //   const cls: WidgetExtraCssClass = {
-  //     // collapsed: status.collapsed,
-  //     collapsedVisible: status.startCollapsed && !status.collapsed,
-  //   };
-  //
-  //   if (status.startCollapsed) {
-  //     if (status.collapsed) {
-  //     } else {
-  //       // cls.collapsed = true;
-  //     }
-  //   } else {
-  //     // cls.collapsed = false;
-  //   }
-  //   return cls;
-  // }
-
   function handleToolbarEvent(event: CustomEvent<WidgetToolbarEvent>): void {
     const toolbarEvent = event.detail;
 
@@ -55,12 +28,11 @@
   let startCollapsed = value && localStorage.getItem(`${value.id}-collapsed`) === 't';
   let collapsed = startCollapsed;
 
-  // $: cssClasses = cssExtraClasses({ startCollapsed, collapsed });
   $: collapsedVisible = startCollapsed && !collapsed;
 
 </script>
 
-<div class="ml-widget"
+<div class="widget"
      class:collapsed={startCollapsed}
      class:collapsed-visible={collapsedVisible}
      data-list-id={value.id}
@@ -86,8 +58,17 @@
 </div>
 
 <style>
+  .widget {
+    flex: 1;
+    border: 1px solid var(--widget-border-color);
+    margin: 5px 10px;
+    background-color: var(--widget-background-color, #ff0000);
+    box-shadow: 8px 8px 6px rgba(0,0,0,.2);
+    border-radius: var(--widget-border-radius);
+  }
+
   /* apply style to child element **/
-  .ml-widget:hover :global(.hover-toolbar) {
+  .widget:hover :global(.hover-toolbar) {
     display: block;
   }
 
@@ -142,7 +123,7 @@
     border-right: 1px solid var(--widget-border-color);
     border-bottom: 1px solid var(--widget-border-color);
     left: -1px;
-    box-shadow: 8px 8px 6px rgba(0,0,0,.2);
+    box-shadow: 8px 8px 6px rgba(0, 0, 0, .2);
     border-bottom-left-radius: var(--widget-border-radius);
     border-bottom-right-radius: var(--widget-border-radius);
   }

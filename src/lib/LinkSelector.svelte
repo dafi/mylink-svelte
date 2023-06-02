@@ -1,29 +1,21 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import Fuse from 'fuse.js';
+  import { LinkSearch } from '../common/LinkSearch';
+  import type { LinkSearchResult } from '../common/LinkSearch.js';
   import type { Link as MMLink, Widget } from '../model/MyLinks-interface';
   import LinkIcon from './LinkIcon.svelte';
 
   const dispatch = createEventDispatcher();
 
-  interface Result {
-    id: string;
-    link: MMLink;
-  }
-
   export let widgets: [Widget[]] | undefined = [];
   export let visible = false;
-  let result: Result[] = [];
+  let result: LinkSearchResult[] = [];
+  const linkSearch = new LinkSearch();
   let selectedIndex = -1;
   let listRefs: Record<string, HTMLLIElement> = {};
   let inputBox: HTMLInputElement | undefined;
 
-  const fuseOptions = {
-    keys: ['label']
-  };
-
-  $: links = widgets?.flat().map(w => w.list).flat() || [];
-  $: fuse = new Fuse(links, fuseOptions);
+  $: linkSearch.setLinks(widgets?.flat().map(w => w.list).flat() || []);
   $: moveFocusToSearch(visible);
   $: clear(visible);
 
@@ -80,18 +72,8 @@
     const pattern = (e.target as HTMLInputElement).value;
 
     listRefs = {};
-    result = filter(pattern);
+    result = linkSearch.filter(pattern);
     selectedIndex = result.length ? 0 : -1;
-  }
-
-  function filter(pattern: string): Result[] {
-    if (pattern.length === 0) {
-      return [];
-    }
-
-    return fuse.search(pattern).map(r =>
-      ({ id: r.item.id, link: r.item })
-    );
   }
 
   function moveFocusToSearch(setFocus: boolean): void {
@@ -135,7 +117,8 @@
         ><i class="list-image">
           <LinkIcon link={r.link}/>
         </i>
-          <div>{r.link.label} {r.link.widget?.title ? ` - ${r.link.widget.title}` : ''}</div>
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+          <div>{@html r.highlighted} {r.link.widget?.title ? ` - ${r.link.widget.title}` : ''}</div>
         </li>
       {/each}
     </ul>
