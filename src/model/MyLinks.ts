@@ -4,7 +4,10 @@ const FaviconWidth = 16;
 const FaviconHeight = 16;
 
 export function openAllLinks(wd: Widget): void {
-  wd.list.reverse().forEach(openLink);
+  const list = wd.list;
+  for (let i = wd.list.length - 1; i >= 0; i--) {
+    openLink(list[i]);
+  }
 }
 
 export function openLink(link: Link): void {
