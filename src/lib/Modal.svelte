@@ -75,31 +75,31 @@
 
 </script>
 
-<div class="spotlight-backdrop" id="topModal" class:visible bind:this={topDiv} on:click={()=>close()}>
-  <div class="spotlight-modal" id='modal' on:click|stopPropagation={()=>{}}>
+<div class="backdrop" id="topModal" class:visible bind:this={topDiv} on:click={()=>close()}>
+  <div class="modal" id='modal' on:click|stopPropagation={()=>{}}>
       <slot visible={visible}></slot>
   </div>
 </div>
 
 <style>
-  .spotlight-backdrop {
+  .backdrop {
     visibility: hidden;
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: var(--dialog-backdrop-color);
     padding: 50px;
   }
 
-  .spotlight-modal {
-    background-color: #fff;
+  .modal {
+    background-color: var(--dialog-background-color);
     border-radius: 5px;
     margin: 0 auto;
     max-width: 750px;
     min-height: 40px;
-    border: 1px solid #000;
+    border: 1px solid var(--dialog-border-color);
   }
 
   .visible {

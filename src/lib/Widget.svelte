@@ -63,7 +63,7 @@
     border: 1px solid var(--widget-border-color);
     margin: 5px 10px;
     background-color: var(--widget-background-color, #ff0000);
-    box-shadow: 8px 8px 6px rgba(0,0,0,.2);
+    box-shadow: 8px 8px 6px var(--box-shadow-color1);
     border-radius: var(--widget-border-radius);
   }
 
@@ -84,10 +84,10 @@
   }
 
   .title {
-    color: #000;
+    color: var(--widget-title-color);
     display: inline;
     flex-grow: 1;
-    font-size: var(--title-font-size);
+    font-size: var(--widget-title-font-size);
     line-height: 34px;
     margin: 0;
     overflow: hidden;
@@ -123,7 +123,7 @@
     border-right: 1px solid var(--widget-border-color);
     border-bottom: 1px solid var(--widget-border-color);
     left: -1px;
-    box-shadow: 8px 8px 6px rgba(0, 0, 0, .2);
+    box-shadow: 8px 8px 6px var(--box-shadow-color1);
     border-bottom-left-radius: var(--widget-border-radius);
     border-bottom-right-radius: var(--widget-border-radius);
   }

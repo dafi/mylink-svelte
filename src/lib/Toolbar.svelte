@@ -87,8 +87,8 @@
   }
 
   .toolbar-icon {
-    background: #ddd;
-    color: #333;
+    background: var(--toolbar-icon-background-color);
+    color: var(--toolbar-icon-text-color);
     border-radius: .5em;
     padding: 5px;
     margin: 5px;

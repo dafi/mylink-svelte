@@ -126,11 +126,6 @@
 </div>
 
 <style>
-  :root {
-    --link-selector-input-font-size: 2em;
-    --link-selector-input-color: blue;
-  }
-
   .link-selector {
     padding: 10px 0 10px 0;
   }
@@ -165,13 +160,13 @@
   }
 
   .link-selector li:hover {
-    background-color: lightgray;
-    color: black;
+    background-color: var(--link-selector-hover-item-background-color);
+    color: var(--link-selector-hover-item-text-color);
   }
 
   .link-selector .selected {
-    background: blue;
-    color: #fff;
+    background: var(--link-selector-selected-item-background-color);
+    color: var(--link-selector-selected-item-text-color);
   }
 
   .link-selector .input-container {
@@ -188,7 +183,7 @@
   }
 
   .link-selector .list-image {
-    background: white;
+    background: var(--link-selector-image-background-color);
     border-radius: 50%;
     display: inline-block;
     padding: 5px;

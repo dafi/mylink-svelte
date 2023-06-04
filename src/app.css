@@ -1,14 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
 :root {
+  --box-shadow-color1: rgba(0, 0, 0, .2);
+  --box-shadow-color2: rgba(255, 255, 255, .7);
+
+  --link-label-color: #444;
   --link-key-background: #eee;
   --link-key-color: #333;
+  --link-label-font-size: 0.875em;
+  --link-underline-color: #999;
+  --link-key-border-color: #b4b4b4;
+
+  --link-selector-input-font-size: 2em;
+  --link-selector-input-color: blue;
+  --link-selector-selected-item-background-color: blue;
+  --link-selector-selected-item-text-color: #fff;
+  --link-selector-hover-item-background-color: lightgray;
+  --link-selector-hover-item-text-color: #000;
+  --link-selector-image-background-color: #fff;
+
   --favicon-color: blue;
-  --title-font-size: 0.875em;
-  --label-font-size: 0.875em;
+
+  --widget-title-color: #000;
+  --widget-title-font-size: 0.875em;
   --widget-background-color: #fff;
   --widget-border-color: gray;
   --widget-border-radius: 6px;
+  --widget-toolbar-icon-color: #000;
+
+  --toolbar-icon-background-color: #ddd;
+  --toolbar-icon-text-color: #333;
+
+  --dialog-background-color: #fff;
+  --dialog-border-color: #000;
+  --dialog-backdrop-color: rgba(0, 0, 0, 0.3);
 }
 
 body {

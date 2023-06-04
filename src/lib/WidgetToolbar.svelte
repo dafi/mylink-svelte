@@ -37,7 +37,7 @@
 
   .toolbar .icon {
     padding-right: 8px;
-    color: #000;
+    color: var(--widget-toolbar-icon-color);
   }
 
   .toolbar .icon:hover {
