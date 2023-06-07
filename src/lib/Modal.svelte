@@ -97,6 +97,7 @@
     background-color: var(--dialog-background-color);
     border-radius: 5px;
     margin: 0 auto;
+    padding: 5px;
     max-width: 750px;
     min-height: 40px;
     border: 1px solid var(--dialog-border-color);
